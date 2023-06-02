@@ -5,7 +5,7 @@ const useFetch = (endpoint, query) => {
   const [data, setData] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, isError] = useState(null);
+  const [error, setError] = useState(null);
 
   const options = {
     method: "GET",
@@ -18,6 +18,7 @@ const useFetch = (endpoint, query) => {
   };
 
   const fetchData = async () => {
+    setError(false);
     setIsLoading(true);
 
     try {
@@ -26,7 +27,7 @@ const useFetch = (endpoint, query) => {
       setData(response.data.data);
       setIsLoading(false);
     } catch (error) {
-      setDefaultResultOrder(error);
+      setError(error);
       alert("There is an error");
     } finally {
       setIsLoading(false);
